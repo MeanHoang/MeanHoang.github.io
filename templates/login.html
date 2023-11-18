@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            text-align: center;
+            background-image: url('https://png.pngtree.com/thumb_back/fw800/back_pic/04/12/72/54581c7228244e4.jpg');
+            background-size: cover; 
+              background-repeat: no-repeat; 
+            background-attachment: fixed;
+        }
+
+        h1 {
+            color: #333;
+            margin-top: 50px;
+        }
+
+        form {
+            max-width: 300px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        button.login {
+            background-color: #007BFF; /* Blue color */
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: block;
+            width: 100%; /* Make the button fill the width of its container */
+        }
+
+        button.login:hover {
+            background-color: #0056b3; /* Darker shade on hover */
+        }
+
+        button.register {
+            background-color: #28a745; /* Green color */
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: block;
+            width: 100%; /* Make the button fill the width of its container */
+        }
+
+        button.register:hover {
+            background-color: #218838; /* Darker shade on hover */
+        }
+    </style>
+</head>
+<body>
+    <h1>Đăng nhập</h1>
+    <form method="post" action="{{ url_for('login') }}">
+        <label for="username">Tài khoản:</label>
+        <input type="text" id="username" name="username" required>
+
+        <label for="password">Mật khẩu:</label>
+        <input type="password" id="password" name="password" required>
+
+        <button class="login" type="submit">Đăng nhập</button>
+    </form>
+
+    <form method="get" action="{{ url_for('register') }}">
+        <button class="register" type="submit">Tạo tài khoản mới</button>
+    </form>
+</body>
+</html>

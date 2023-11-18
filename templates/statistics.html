@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Statistics</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            text-align: center;
+            background-image: url('https://png.pngtree.com/thumb_back/fw800/back_pic/04/12/72/54581c7228244e4.jpg');
+            background-size: cover; 
+            background-repeat: no-repeat; 
+            background-attachment: fixed;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            overflow: hidden; /* Add overflow property to clear floats */
+        }
+
+        .navbar-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .logo img {
+            height: 75px;
+        }
+
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            background-color: #007BFF;
+            overflow: hidden;
+            border-radius: 5px;
+        }
+
+        li {
+            float: left;
+        }
+
+        li a {
+            display: block;
+            color: #fff;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            border-right: 1px solid #0056b3;
+            transition: background-color 0.3s;
+        }
+
+        li:last-child {
+            border-right: none;
+        }
+
+        li a:hover {
+            background-color: #0056b3;
+        }
+
+        .logout {
+            margin-left: auto;
+            padding: 10px;
+            background-color: #dc3545;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-size: 14px;
+        }
+
+        .logout:hover {
+            background-color: #c82333;
+        }
+
+        h2 {
+            color: #000; /* Màu đen cho tiêu đề */
+        }
+
+        /* Container for tables */
+        .tables-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        /* Style for individual tables */
+        .table-container {
+            width: 48%; /* Adjust the width as needed */
+            float: left; /* Float tables to left */
+            box-sizing: border-box; /* Include padding and border in the width */
+            margin-right: 4%; /* Add some space between the tables */
+        }
+
+        table {
+            width: 100%; /* Make the table fill its container */
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #007BFF;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="navbar-container">
+                <div class="logo">
+                    <img src="https://scontent.xx.fbcdn.net/v/t1.15752-9/386468527_329684616345562_4090802372396501244_n.png?stp=dst-png_p206x206&_nc_cat=105&ccb=1-7&_nc_sid=510075&_nc_ohc=DTqGvUevA5YAX8pC1xW&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=03_AdRjPqqxTIqKvAKvi2ymSl3d-YzPKBHwEwuDZtapcWpOoQ&oe=657C34A3"
+                        alt="Logo">
+                </div>
+                <button class="logout" onclick="location.href='{{ url_for('logout') }}'">Đăng xuất</button>
+            </div>
+        </header>
+        <ul>
+            <li class="home-button"><a href="{{ url_for('dashboard') }}">Trang chủ</a></li>
+            <li><a href="{{ url_for('employee_management') }}">Quản lý nhân sự</a></li>
+            <li><a href="{{ url_for('attendance') }}">Điểm danh</a></li>
+            <li><a href="{{ url_for('salary') }}">Quản lý lương</a></li>
+            <li><a href="{{ url_for('statistics') }}">Tổng kết</a></li>
+            <li><a href="#">Hỗ trợ</a></li>
+            <li><a href="#">Liên hệ</a></li>
+        </ul>
+    </div>
+    <div class="container">
+        <div class="tables-container">
+            <div class="table-container">
+                <h2>Thông báo công</h2>
+                <table>
+                    <tr>
+                        <th>Mã Nhân viên</th>
+                        <th>Tên Nhân viên</th>
+                        <th>Ngày</th>
+                    </tr>
+                    {% for record in attendance_records %}
+                        <tr>
+                            <td>{{ record.employee.employee_id }}</td>
+                            <td>{{ record.employee.full_name }}</td>
+                            <td>{{ record.date }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+
+            <div class="table-container">
+                <h2>Tổng kết lương</h2>
+                <table>
+                    <tr>
+                        <th>Mã nhân viên</th>
+                        <th>Tên nhân viên</th>
+                        <th>Đến ngày</th>
+                        <th>Tổng lương</th>
+                    </tr>
+                    {% for report in salary_report %}
+                        <tr>
+                            <td>{{ report.employee.employee_id }}</td>
+                            <td>{{ report.employee.full_name }}</td>
+                            <td>{{ report.date }}</td>
+                            <td>${{ report.amount }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mark Attendance</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            text-align: center;
+            background-image: url('https://png.pngtree.com/thumb_back/fw800/back_pic/04/12/72/54581c7228244e4.jpg');
+            background-size: cover; 
+              background-repeat: no-repeat; 
+            background-attachment: fixed;
+        }
+
+        .container {
+            max-width: 800px; /* Adjust the maximum width as needed */
+            margin: 0 auto; /* Center the container */
+        }
+
+        .navbar-container {
+            display: flex;
+            justify-content: space-between; /* Distribute items along the container */
+            align-items: center; /* Center items vertically */
+            padding: 20px;
+        }
+
+        .logo img {
+            height: 75px; /* Set the height of your logo */
+        }
+
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            background-color: #007BFF; /* Blue color */
+            overflow: hidden;
+            border-radius: 5px;
+        }
+
+        li {
+            float: left;
+        }
+
+        li a {
+            display: block;
+            color: #fff;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            border-right: 1px solid #0056b3; /* Darker shade for border */
+            transition: background-color 0.3s;
+        }
+
+        li:last-child {
+            border-right: none;
+        }
+
+        li a:hover {
+            background-color: #0056b3; /* Darker shade on hover */
+        }
+
+        .logout {
+         margin-left: auto;
+         padding: 10px;
+        background-color: #dc3545;
+         color: #fff;
+        border: none;
+       border-radius: 5px;
+       cursor: pointer;
+      transition: background-color 0.3s;
+       font-size: 14px; /* Adjust the font size as needed */
+}
+
+.logout:hover {
+    background-color: #c82333;
+}
+
+        .add-button {
+            background-color: #28a745; /* Green color */
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 20px;
+        }
+
+        .add-button:hover {
+            background-color: #218838; /* Darker shade on hover */
+        }
+
+        /* Styles for the Excel table container */
+        .excel-table-container {
+            max-width: 800px;
+            margin: 20px auto; /* Center the table container */
+            overflow-x: auto; /* Add horizontal scroll if needed */
+        }
+
+        /* Style for the Excel table */
+        table {
+            width: 100%; /* Make the table fill its container */
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        form {
+            max-width: 400px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 16px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        input[type="submit"] {
+            background-color: #007BFF; /* Adjust the color to match your design */
+            color: #fff;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            padding: 10px;
+            transition: background-color 0.3s;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3; /* Darker shade on hover */
+        }
+
+        /* Additional styling for recent attendances */
+        h2 {
+            margin-top: 20px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="navbar-container">
+                <div class="logo">
+                    <img src="https://scontent.xx.fbcdn.net/v/t1.15752-9/386468527_329684616345562_4090802372396501244_n.png?stp=dst-png_p206x206&_nc_cat=105&ccb=1-7&_nc_sid=510075&_nc_ohc=DTqGvUevA5YAX8pC1xW&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=03_AdRjPqqxTIqKvAKvi2ymSl3d-YzPKBHwEwuDZtapcWpOoQ&oe=657C34A3"
+                        alt="Logo">
+                </div>
+                <button class="logout" onclick="location.href='{{ url_for('logout') }}'">Đăng xuất</button>
+            </div>
+        </header>
+
+        <ul>
+            <li class="home-button"><a href="{{ url_for('dashboard') }}">Trang chủ</a></li>
+            <li><a href="{{ url_for('employee_management') }}">Quản lý nhân sự</a></li>
+            <li><a href="{{ url_for('attendance') }}">Điểm danh</a></li>
+            <li><a href="{{ url_for('salary') }}">Quản lý lương</a></li>
+            <li><a href="{{ url_for('statistics') }}">Tổng kết</a></li>
+            <li><a href="#">Hỗ trợ</a></li>
+            <li><a href="#">Liên hệ</a></li>
+        </ul>
+
+        <form action="{{ url_for('attendance') }}" method="post">
+            <label for="employee_id">Mã Nhân viên:</label>
+            <input type="text" id="employee_id" name="employee_id" required>
+            <button type="submit">Điểm danh</button>
+        </form>
+
+<div class="container">
+        <div class="tables-container">
+            <div class="table-container">
+                <h2>Lịch sử</h2>
+                <table>
+            <tr>
+                <th>Mã nhân viên</th>
+                <th>Tên nhân viên</th>
+                <th>Ngày chấm công</th>
+                <th>Số Công</th>
+            </tr>
+            {% for record in attendance_records %}
+            <tr>
+                <td>{{ employee.employee_id if employee else '' }}</td>
+                <td>{{ employee.full_name if employee else '' }}</td>
+                <td>{{ record[1] }}</td>
+                <td>{{ record[2] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+            </div>
+
+</body>
+</html>

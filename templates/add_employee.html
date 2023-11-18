@@ -1,0 +1,162 @@
+<!-- Trong file templates/add_employee.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Employee</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            text-align: center;
+            background-image: url('https://png.pngtree.com/thumb_back/fw800/back_pic/04/12/72/54581c7228244e4.jpg');
+            background-size: cover; 
+              background-repeat: no-repeat; 
+            background-attachment: fixed;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .navbar-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .logo img {
+            height: 75px;
+        }
+
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            background-color: #007BFF;
+            overflow: hidden;
+            border-radius: 5px;
+        }
+
+        li {
+            float: left;
+        }
+
+        li a {
+            display: block;
+            color: #fff;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            border-right: 1px solid #0056b3;
+            transition: background-color 0.3s;
+        }
+
+        li:last-child {
+            border-right: none;
+        }
+
+        li a:hover {
+            background-color: #0056b3;
+        }
+
+        .logout {
+            margin-left: auto;
+            padding: 10px;
+            background-color: #dc3545;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-size: 14px;
+        }
+
+        .logout:hover {
+            background-color: #c82333;
+        }
+
+        /* Updated styling for the form */
+        form {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 16px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        input[type="submit"] {
+            background-color: #28a745;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="navbar-container">
+                <div class="logo">
+                    <img src="https://scontent.xx.fbcdn.net/v/t1.15752-9/386468527_329684616345562_4090802372396501244_n.png?stp=dst-png_p206x206&_nc_cat=105&ccb=1-7&_nc_sid=510075&_nc_ohc=DTqGvUevA5YAX8pC1xW&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=03_AdRjPqqxTIqKvAKvi2ymSl3d-YzPKBHwEwuDZtapcWpOoQ&oe=657C34A3"
+                        alt="Logo">
+                </div>
+                <button class="logout" onclick="location.href='{{ url_for('logout') }}'">Đăng xuất</button>
+            </div>
+        </header>
+        <ul>
+            <li class="home-button"><a href="{{ url_for('dashboard') }}">Trang chủ</a></li>
+            <li><a href="{{ url_for('employee_management') }}">Quản lý nhân sự</a></li>
+            <li><a href="{{ url_for('attendance') }}">Điểm danh</a></li>
+            <li><a href="{{ url_for('salary') }}">Quản lý lương</a></li>
+            <li><a href="{{ url_for('statistics') }}">Tổng kết</a></li>
+            <li><a href="#">Hỗ trợ</a></li>
+            <li><a href="#">Liên hệ</a></li>
+        </ul>
+    </div>
+    <form method="post" action="{{ url_for('add_employee') }}">
+        <h1>Tạo nhân viên mới</h1>
+        <label for="full_name">Họ và tên:</label>
+        <input type="text" id="full_name" name="full_name" required>
+        <br>
+        <label for="employee_id">Mã nhân viên:</label>
+        <input type="text" id="employee_id" name="employee_id" required>
+        <br>
+        <label for="position">Vị trí:</label>
+        <input type="text" id="position" name="position">
+        <br>
+        <label for="department">Phòng ban:</label>
+        <input type="text" id="department" name="department">
+        <br>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+        <br>
+        <input type="submit" value="Thêm nhân viên" class="add-button">
+    </form>
+</body>
+</html>

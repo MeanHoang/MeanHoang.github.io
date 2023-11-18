@@ -1,0 +1,168 @@
+<!-- Trong file templates/edit_employee.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Employee</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            text-align: center;
+            background-image: url('https://png.pngtree.com/thumb_back/fw800/back_pic/04/12/72/54581c7228244e4.jpg');
+            background-size: cover; 
+              background-repeat: no-repeat; 
+            background-attachment: fixed;
+        }
+
+        .container {
+            max-width: 800px; /* Adjust the maximum width as needed */
+            margin: 0 auto; /* Center the container */
+        }
+
+        .navbar-container {
+            display: flex;
+            justify-content: space-between; /* Distribute items along the container */
+            align-items: center; /* Center items vertically */
+            padding: 20px;
+        }
+
+        .logo img {
+            height: 75px; /* Set the height of your logo */
+        }
+
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            background-color: #007BFF; /* Blue color */
+            overflow: hidden;
+            border-radius: 5px;
+        }
+
+        li {
+            float: left;
+        }
+
+        li a {
+            display: block;
+            color: #fff;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            border-right: 1px solid #0056b3; /* Darker shade for border */
+            transition: background-color 0.3s;
+        }
+
+        li:last-child {
+            border-right: none;
+        }
+
+        li a:hover {
+            background-color: #0056b3; /* Darker shade on hover */
+        }
+
+        .logout {
+            margin-left: auto; /* Push the "Đăng xuất" link to the right */
+            padding: 10px; /* Add padding to style it like a button */
+            background-color: #dc3545; /* Red color */
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .logout:hover {
+            background-color: #c82333; /* Darker shade on hover */
+        }
+
+        /* Styles for the form container */
+        .form-container {
+            max-width: 400px;
+            margin: 20px auto; /* Center the form container */
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Styles for the form fields */
+        label {
+            display: block;
+            margin-bottom: 8px;
+            text-align: left;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 16px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #007BFF; /* Blue color */
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #0056b3; /* Darker shade on hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="navbar-container">
+                <div class="logo">
+                    <img src="https://scontent.xx.fbcdn.net/v/t1.15752-9/386468527_329684616345562_4090802372396501244_n.png?stp=dst-png_p206x206&_nc_cat=105&ccb=1-7&_nc_sid=510075&_nc_ohc=DTqGvUevA5YAX8pC1xW&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=03_AdRjPqqxTIqKvAKvi2ymSl3d-YzPKBHwEwuDZtapcWpOoQ&oe=657C34A3"
+                        alt="Logo">
+                </div>
+                <button class="logout" onclick="location.href='{{ url_for('logout') }}'">Đăng xuất</button>
+            </div>
+        </header>
+        <ul>
+            <li class="home-button"><a href="{{ url_for('dashboard') }}">Trang chủ</a></li>
+            <li><a href="{{ url_for('employee_management') }}">Quản lý nhân sự</a></li>
+            <li><a href="{{ url_for('attendance') }}">Điểm danh</a></li>
+            <li><a href="{{ url_for('salary') }}">Quản lý lương</a></li>
+            <li><a href="{{ url_for('statistics') }}">Tổng kết</a></li>
+            <li><a href="#">Hỗ trợ</a></li>
+            <li><a href="#">Liên hệ</a></li>
+        </ul>
+    </div>
+
+    <!-- Form container for editing employee -->
+    <div class="form-container">
+        <h2>Edit Employee</h2>
+        <form method="post" action="{{ url_for('edit_employee', id=employee.id) }}">
+            <label for="full_name">Full Name:</label>
+            <input type="text" id="full_name" name="full_name" value="{{ employee.full_name }}" required>
+
+            <label for="employee_id">Employee ID:</label>
+            <input type="text" id="employee_id" name="employee_id" value="{{ employee.employee_id }}" required>
+
+            <label for="position">Position:</label>
+            <input type="text" id="position" name="position" value="{{ employee.position }}" required>
+
+            <label for="department">Department:</label>
+            <input type="text" id="department" name="department" value="{{ employee.department }}" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" value="{{ employee.email }}" required>
+
+            <button type="submit">Save Changes</button>
+        </form>
+    </div>
+</body>
+</html>
